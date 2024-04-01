@@ -4,7 +4,29 @@
     ViewData["Title"] = "Access denied";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+			<div class="col-first">
+				<h1>Access Denied!</h1>
+				<nav class="d-flex align-items-center">
+					@*<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+					<a href="category.html">Confirmation</a>*@
+				</nav>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Banner Area -->
+<!--================Order Details Area =================-->
+<section class="order_details section_gap text-bg-danger">
+	<div class="container text-center">
+		<h2 class="alert alert-heading alert-danger text-center"><span class="h1">Access Denied!</span><br /><br />You either don't have access to this page or you are not logged in.</h2>
+		<div class="col-md-6 offset-md-3">
+			<a style="font-size: 1.1em;" class="genric-btn primary mr-1" href="@Url.Action("Index", "Home")">Go Home</a>
+			<a style="font-size: 1.1em;" class="genric-btn primary-border ml-1" href="Identity/Account/Login">Login</a>
+		</div>
+	</div>
+	
+</section>

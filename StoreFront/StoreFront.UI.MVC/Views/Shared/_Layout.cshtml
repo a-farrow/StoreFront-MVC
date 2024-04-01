@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+<!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
 <head>
@@ -40,7 +44,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="@Url.Action("Home", "Index")"><img src="~/img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="@Url.Action("Index", "Home")"><img src="~/img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -50,36 +54,94 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
+									<li class="nav-item"><a class="nav-link" href="~/Products">Shop All</a></li>
+									<li class="nav-item"><a class="nav-link" href="single-product.html">Shop Soda</a></li>
+									<li class="nav-item"><a class="nav-link" href="checkout.html">Shop Milk</a></li>
+									<li class="nav-item"><a class="nav-link" href="cart.html">Shop Water</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation.html">Shop Juice</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation.html">Shop Coffee</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation.html">Shop Energy</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation.html">Shop Sports</a></li>
+									<li class="nav-item"><a class="nav-link" href="confirmation.html">Shop Tea</a></li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
+								 aria-expanded="false">About</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+									<li class="nav-item"><a class="nav-link" href="blog.html">About Us</a></li>
+									<li class="nav-item"><a class="nav-link" href="single-blog.html">About Our Products</a></li>
 								</ul>
 							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a></li>
+							@if (User.IsInRole("Admin"))
+							{
+								<li class="nav-item submenu dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+									aria-expanded="false">Admin</a>
+									<ul class="dropdown-menu">
+										<li class="nav-item"><a asp-action="ListUsers" asp-controller="Administration" class="nav-link">Users</a></li>
+										<li class="nav-item"><a asp-action="ListRoles" asp-controller="Administration" class="nav-link">Roles</a></li>
+										<li class="nav-item"><a asp-action="ListSuppliers" asp-controller="Administration" class="nav-link">Suppliers</a></li>
+										<li class="nav-item"><a asp-action="ListCategories" asp-controller="Administration" class="nav-link">Categories</a></li>
+										@* <li class="nav-item"><a href="Identity/Account/Logout" class="nav-link">Logout</a></li>
+										<li class="nav-item"><a href="Identity/Account/Login" class="nav-link">Login</a></li> *@
+									</ul>
+								</li>
+							}
+							@if (signInManager.IsSignedIn(User))
+							{
+								<li class="nav-item submenu dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+									aria-expanded="false">Account</a>
+									<ul class="dropdown-menu">
+										@if (User.IsInRole("User"))
+										{
+											<li class="nav-item"><a href="#" class="nav-link">My Orders</a></li>
+											<li class="nav-item"><a href="@Url.Action("Tracking", "Home")" class="nav-link">Track Order</a></li>
+										}
+										@if (User.IsInRole("Employee"))
+										{
+											<li class="nav-item"><a asp-action="Index" asp-controller="Orders" class="nav-link">View Orders</a></li>
+											<li class="nav-item"><a asp-action="Index" asp-controller="Suppliers" class="nav-link">View Suppliers</a></li>
+											<li class="nav-item"><a asp-action="Index" asp-controller="Products" class="nav-link">All Products</a></li>
+											<li class="nav-item"><a href="@Url.Action("Tracking", "Home")" class="nav-link">Track Order</a></li>
+										}
+										@if (User.IsInRole("Admin"))
+										{
+											<li class="nav-item"><a asp-action="Index" asp-controller="Orders" class="nav-link">View Orders</a></li>
+											<li class="nav-item"><a asp-action="Index" asp-controller="Suppliers" class="nav-link">View Suppliers</a></li>
+											<li class="nav-item"><a asp-action="Index" asp-controller="Products" class="nav-link">All Products</a></li>
+											<li class="nav-item"><a href="@Url.Action("Tracking", "Home")" class="nav-link">Track Order</a></li>
+										}
+										@*<li class="nav-item"><a asp-action="Index" asp-controller="Products" class="nav-link">All Products</a></li>
+										<li class="nav-item"><a asp-action="ListCategories" asp-controller="Administration" class="nav-link">Categories</a></li> *@
+										<li class="nav-item"><a href="Identity/Account/Logout" class="nav-link">Logout</a></li>
+										@* <li class="nav-item"><a href="Identity/Account/Login" class="nav-link">Login</a></li> *@
+									</ul>
+								</li>
+							}
+							@if (!signInManager.IsSignedIn(User))
+							{
+								<li class="nav-item submenu dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+									   aria-expanded="false">Register/Login</a>
+									<ul class="dropdown-menu">
+										<li class="nav-item"><a href="Identity/Account/Register" class="nav-link">Register</a></li>
+										<li class="nav-item"><a href="Identity/Account/Login" class="nav-link">Login</a></li>
+										@*<li class="nav-item"><a asp-action="Index" asp-controller="Products" class="nav-link">All Products</a></li>
+										<li class="nav-item"><a asp-action="ListCategories" asp-controller="Administration" class="nav-link">Categories</a></li>
+										<li class="nav-item"><a href="Identity/Account/Logout" class="nav-link">Logout</a></li>
+										<li class="nav-item"><a href="Identity/Account/Login" class="nav-link">Login</a></li> *@
+									</ul>
+								</li>
+							}
+
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>

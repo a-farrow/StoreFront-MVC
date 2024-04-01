@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StoreFront.UI.MVC.Models;
 using System.Diagnostics;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace StoreFront.UI.MVC.Controllers
 {
@@ -8,14 +10,63 @@ namespace StoreFront.UI.MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public readonly IConfiguration _config;
+
+        public HomeController(ILogger<HomeController> logger, IConfiguration config)
         {
             _logger = logger;
+            _config = config;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(ContactViewModel cvm)
+        {
+            if (!ModelState.IsValid)
+            {
+                //If the Model is not valid, return to the form and keep their info in the fields
+                return View(cvm);
+            }
+            else
+            {
+                //proccess the sending of the email message
+                string message = $"You have received an email from {cvm.Name} (reply to: {cvm.Email}).\n* Subject: {cvm.Subject}\n* Message: \n{cvm.Message}";
+                var mm = new MimeMessage();
+                mm.From.Add(new MailboxAddress("No Reply", _config.GetValue<string>("Credentials:Email:User")));
+                mm.To.Add(new MailboxAddress("Spencer", _config.GetValue<string>("Credentials:Email:Recipient")));
+                mm.Subject = cvm.Subject;
+                mm.Body = new TextPart("HTML") { Text = message };
+                mm.ReplyTo.Add(new MailboxAddress(cvm.Name, cvm.Email));
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect(_config.GetValue<string>("Credentials:Email:Client"));
+                    client.Authenticate(
+                            _config.GetValue<string>("Credentials:Email:User"),
+                            _config.GetValue<string>("Credentials:Email:Password")
+                        );
+                    try
+                    {
+                        client.Send(mm);
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.ErrorMessage = $"There was an error senting the email. Please try again later.\nError info: {ex.StackTrace}";
+                        return View(cvm);
+                    }
+                }
+
+                return View("EmailConfirmation", cvm);
+            }
         }
 
         public IActionResult Privacy()

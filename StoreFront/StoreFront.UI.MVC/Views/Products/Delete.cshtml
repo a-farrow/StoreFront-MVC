@@ -1,0 +1,85 @@
+﻿@model StoreFront.DATA.EF.Models.Product
+
+@{
+    ViewData["Title"] = "Delete " + Model.ProductName;
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1 class="">Delete @Model.ProductName?</h1>
+                <nav class="d-flex align-items-center">
+                    @* <p><a asp-action="Create">Add New Product</a></p> *@
+                    @* <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Fashon Category</a> *@
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<div class="row">
+<div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 pb-4 pt-3 mb-4 justify-content-center">
+    <h3 class="alert alert-danger text-center mt-5">Are you sure you want to delete @Model.ProductName?<br />This action <u class="alert-danger">CANNOT</u> be undone!</h3>
+        <!--================Single Product Area =================-->
+        <div class="product_image_area">
+            <div class="container">
+                <div class="row s_product_inner">
+                    <div class="col-lg-6">
+                        <div class="s_Product_carousel">
+                            <div class="single-prd-item">
+                                <img class="img-fluid" src="~/img/@Model.ProductImage" alt="@Model.ProductName">
+                            </div>
+                            <div class="single-prd-item">
+                                <img class="img-fluid" src="~/img/@Model.ProductImage" alt="@Model.ProductName">
+                            </div>
+                            <div class="single-prd-item">
+                                <img class="img-fluid" src="~/img/@Model.ProductImage" alt="@Model.ProductName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 offset-lg-1">
+                        <div class="s_product_text">
+                            <h3>@Model.ProductName</h3>
+                            <h2>@Html.DisplayFor(model => model.UnitPrice)</h2>
+                            <ul class="list">
+                                <li><a class="active" href="#" style="pointer-events: none;"><span>Category:</span> @Model.Category.CategoryName</a></li>
+                                <li><a href="#" style="pointer-events: none;"><span>Status:</span> @Model.ProductStatus.ProductStatusName</a></li>
+                                <li><a href="#" style="pointer-events: none;"><span>Unit Weight (lbs):</span> @Model.UnitWeightLbs</a></li>
+                                <li><a href="#" style="pointer-events: none;"><span>Unit Size:</span> @Model.UnitSizeFlOunce fl oz</a></li>
+                                <li><a href="#" style="pointer-events: none;"><span>Cost:</span> @Model.UnitPrice)</a></li>
+                                <li><a href="#" style="pointer-events: none;"><span>Supplier:</span> @Model.Supplier.CompanyName</a></li>
+                            </ul>
+                            <p>
+                                <strong>Description:</strong> @Model.ProductDescription
+                            </p>
+                            @* <div class="product_count">
+                            <label for="qty">Quantity:</label>
+                            <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                            class="increase items-count" type="button">
+                            <i class="lnr lnr-chevron-up"></i>
+                            </button>
+                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                            class="reduced items-count" type="button">
+                            <i class="lnr lnr-chevron-down"></i>
+                            </button>
+                            </div> *@
+                            <div class="card_area d-flex align-items-center mb-5">
+                                <a asp-action="Index" class="primary-btn ml-3">Back to List</a>
+                                <form asp-action="Delete">
+                                    <input type="hidden" asp-for="ProductId" />
+                                    <input type="submit" value="Delete FOREVER" class="btn btn-danger" />
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>

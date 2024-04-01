@@ -343,6 +343,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -682,6 +683,10 @@
     <None Include="_Archive\js\.DS_Store" />
     <None Include="_Archive\Karma Shop-doc\.DS_Store" />
     <None Include="_Archive\scss\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoreFront.DATA.EF\StoreFront.DATA.EF.csproj" />
   </ItemGroup>
 
   <ItemGroup>
