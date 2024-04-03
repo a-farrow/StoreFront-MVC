@@ -2,10 +2,70 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login";
 }
 
-<h1>@ViewData["Title"]</h1>
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Login</h1>
+                <nav class="d-flex align-items-center">
+                    @*<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Contact</a>*@
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/img/login.jpg" alt="Loging in on a computer">
+                    <div class="hover">
+                        <h4>New to our website?</h4>
+                        <p>If this is your first time be sure to register by clicking below. Don't worry, we don't spam you with emails</p>
+                        <a class="primary-btn" href="~/Identity/Account/Register">Register An Account</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Welcome back, it's good to see you!</h3>
+                    <form class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" id="name" placeholder="Email" aria-required="true">
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Password" class="form-control" id="name" placeholder="Password" autocomplete="current-password" aria-required="true">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="creat_account">
+                                <input asp-for="Input.RememberMe" type="checkbox" id="f-option2">
+                                <label asp-for="Input.RememberMe" class="form-label">Remember me?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            @* <button type="submit" value="submit" class="primary-btn">Log In</button> *@
+                            <button id="login-submit" type="submit" value="submit" class="w-100 primary-btn">Log in</button>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Box Area =================-->
+
+@* <h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -78,7 +138,7 @@
             }
         </section>
     </div>
-</div>
+</div> *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
