@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using StoreFront.DATA.EF.Models;
 using static StoreFront.DATA.EF.Models.ProductMetadata;
 
@@ -17,7 +18,11 @@ namespace StoreFront.DATA.EF.Models
     public partial class Order { }
 
     [ModelMetadataType(typeof(ProductMetadata))]
-    public partial class Product { }
+    public partial class Product 
+    {
+        [NotMapped]
+        public IFormFile? Image { get; set; }
+    }
 
     [ModelMetadataType(typeof(SupplierMetadata))]
     public partial class  Supplier { }

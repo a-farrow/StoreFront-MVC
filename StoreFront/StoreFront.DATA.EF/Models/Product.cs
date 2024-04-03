@@ -25,9 +25,9 @@ namespace StoreFront.DATA.EF.Models
         public decimal? UnitSizeFlOunce { get; set; }
         public string? ProductImage { get; set; }
 
-        public virtual Category Category { get; set; } = null!;
-        public virtual ProductStatus ProductStatus { get; set; } = null!;
-        public virtual Supplier Supplier { get; set; } = null!;
+        public virtual Category? Category { get; set; } 
+        public virtual ProductStatus? ProductStatus { get; set; }
+        public virtual Supplier? Supplier { get; set; }
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

@@ -23,28 +23,31 @@
 
 <div class="row">
     <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 pb-4 pt-3 mb-4 justify-content-center">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data" class="contact_form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="ProductImage" />
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SupplierId" class="control-label"></label>
-                <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
-                <span asp-validation-for="SupplierId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductStatusId" class="control-label"></label>
-                <select asp-for="ProductStatusId" class="form-control" asp-items="ViewBag.ProductStatusId"></select>
-                <span asp-validation-for="ProductStatusId" class="text-danger"></span>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="SupplierId" class="control-label d-block"></label>
+                    <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
+                    <span asp-validation-for="SupplierId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CategoryId" class="control-label d-block"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="ProductStatusId" class="control-label d-block"></label>
+                    <select asp-for="ProductStatusId" class="form-control" asp-items="ViewBag.ProductStatusId"></select>
+                    <span asp-validation-for="ProductStatusId" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="ProductDescription" class="control-label"></label>
@@ -86,15 +89,16 @@
                 <input asp-for="UnitSizeFlOunce" class="form-control" />
                 <span asp-validation-for="UnitSizeFlOunce" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="-form-group">
                 <label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
+                <br />
+                <input type="file" asp-for="Image" class="-form-control text-center" />
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" style="font-size: 1em;" value="Save Changes" class="genric-btn primary col-auto" />
+            <div class="form-group mt-4">
+                <input type="submit" style="font-size: 1em;" value="Save" class="genric-btn primary col-auto" />
             </div>
-            <a asp-action="Index" style="font-size: 1em;" class="genric-btn primary-border mt-1">Undo, changes and go back to list</a>
+            <div><a asp-action="Index" style="font-size: 1em;" class="genric-btn primary-border mt-3">Undo, changes and go back to list</a></div>
         </form>
     </div>
 </div>
