@@ -27,17 +27,11 @@
 	<div class="container">
 		<div class="row s_product_inner">
 			<div class="col-lg-6">
-				<div class="s_Product_carousel">
+				@* <div class="s_Product_carousel"> *@
 					<div class="single-prd-item">
 						<img class="img-fluid" src="~/img/@Model.ProductImage" alt="@Model.ProductName">
 					</div>
-					<div class="single-prd-item">
-						<img class="img-fluid" src="~/img/@Model.ProductImage" alt="@Model.ProductName">
-					</div>
-					<div class="single-prd-item">
-						<img class="img-fluid" src="~/img/@Model.ProductImage" alt="@Model.ProductName">
-					</div>
-				</div>
+				@* </div> *@
 			</div>
 			<div class="col-lg-5 offset-lg-1">
 				<div class="s_product_text">
@@ -67,7 +61,7 @@
 					<div class="card_area d-flex align-items-center mb-5">
 						@* <a class="primary-btn" href="#">Edit Product</a> *@
 						<a asp-action="Edit" class="primary-btn" asp-route-id="@Model?.ProductId">Edit Product</a>
-						<a asp-action="Index" class="primary-btn">Back to List</a>
+						<a asp-action="TiledProducts" class="primary-btn">Back to List</a>
 					</div>
 				</div>
 			</div>
