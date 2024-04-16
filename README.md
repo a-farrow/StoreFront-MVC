@@ -7,4 +7,4 @@ The goal of this project is to practice and demonstrate my skills when it comes 
 * Microsoft Visual Studio 2022
 * ASP.NET MVC
 * Microsoft SSMS 19
-* C#, HTML, CSS, Javascript, etc
+* C#, HTML, CSS, SCSS, and Javascript
