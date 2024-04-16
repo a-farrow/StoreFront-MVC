@@ -11,7 +11,7 @@ namespace StoreFront.DATA.EF.Models
         }
 
         public int OrderId { get; set; }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; } = null!;
         public DateTime OrderDate { get; set; }
         public TimeSpan OrderTime { get; set; }
         public string ShipToName { get; set; } = null!;

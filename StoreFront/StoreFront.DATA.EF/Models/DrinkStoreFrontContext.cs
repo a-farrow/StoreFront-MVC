@@ -143,7 +143,10 @@ namespace StoreFront.DATA.EF.Models
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(128)
+                    .IsUnicode(false)
+                    .HasColumnName("CustomerID");
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(100)
@@ -192,7 +195,10 @@ namespace StoreFront.DATA.EF.Models
             {
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(128)
+                    .IsUnicode(false)
+                    .HasColumnName("CustomerID");
 
                 entity.Property(e => e.OrderDate).HasColumnType("date");
 

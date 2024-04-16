@@ -11,6 +11,8 @@ namespace StoreFront.UI.MVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Scaffold - DbContext "Server=.\sqlexpress;Database=DrinkStoreFront;Trusted_Connection=true;Encrypt=false;MultipleActiveResultSets=true;" Microsoft.EntityFrameworkCore.SqlServer - OutputDir Models - Force
+
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -25,7 +27,15 @@ namespace StoreFront.UI.MVC
                 .AddRoles<IdentityRole>()
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -45,6 +55,8 @@ namespace StoreFront.UI.MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();//MUST come AFTER UseRouting and BEFORE UseAuthentication
 
             app.UseAuthentication();
             app.UseAuthorization();

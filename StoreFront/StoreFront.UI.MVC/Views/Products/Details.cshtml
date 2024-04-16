@@ -60,8 +60,8 @@
 					</div> *@
 					<div class="card_area d-flex align-items-center mb-5">
 						@* <a class="primary-btn" href="#">Edit Product</a> *@
-						<a asp-action="Edit" class="primary-btn" asp-route-id="@Model?.ProductId">Edit Product</a>
-						<a asp-action="TiledProducts" class="primary-btn">Back to List</a>
+						<a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@Model.ProductId" class="primary-btn">Add To Cart</a>
+                        <a asp-action="Edit" class="gray_btn" asp-route-id="@Model?.ProductId">Edit Product</a>
 					</div>
 				</div>
 			</div>

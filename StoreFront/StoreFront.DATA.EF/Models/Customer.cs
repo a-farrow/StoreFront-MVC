@@ -10,7 +10,7 @@ namespace StoreFront.DATA.EF.Models
             Orders = new HashSet<Order>();
         }
 
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; } = null!;
         public string FirstName { get; set; } = null!;
         public string? MiddleInitial { get; set; }
         public string LastName { get; set; } = null!;

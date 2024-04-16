@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using StoreFront.DATA.EF.Models;
 
 namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
 {
@@ -75,6 +77,7 @@ namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [StringLength(200)]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -97,6 +100,43 @@ namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; } = null!;
+
+
+            [Required]
+            [StringLength(75)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; } = null!;
+
+            [Required]
+            [StringLength(100)]
+            public string? Address { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            public string? City { get; set; }
+
+            [Required]
+            [StringLength(2)]
+            public string? State { get; set; }
+
+            [Required]
+            [StringLength(5)]
+            [DataType(DataType.PostalCode)]
+            public string? Zip { get; set; }
+
+            [StringLength(20)]
+            [DataType(DataType.PhoneNumber)]
+            public string? Phone { get; set; }
+
+            [Required]
+            [StringLength(60)]
+            public string Country { get; set; } = null!;
         }
 
 
@@ -122,13 +162,36 @@ namespace StoreFront.UI.MVC.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
+                    var customerId = await _userManager.GetUserIdAsync(user);
+
+                    #region Custom User Details - Creating a new UserDetails record in our DB
+
+                    DrinkStoreFrontContext _context = new DrinkStoreFrontContext();
+
+                    Customer customer = new Customer()
+                    {
+                        CustomerId = customerId,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        Email = Input.Email,
+                        Address = Input.Address,
+                        City = Input.City,
+                        State = Input.State,
+                        Zip = Input.Zip,
+                        Country = Input.Country,
+                        Phone = Input.Phone
+                    };
+
+                    _context.Customers.Add(customer);
+                    _context.SaveChanges();
+
+                    #endregion
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                        values: new { area = "Identity", customerId = customerId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

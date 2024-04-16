@@ -34,13 +34,45 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="login_form_inner">
+                <div class="login_form_inner" style="padding-top: 50px;">
                     <h3>Register/Create A New Account</h3>
                     <form asp-route-returnUrl="@Model.ReturnUrl" class="row login_form" method="post" id="registerForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-12 form-group">
-                            <input asp-for="Input.Email" class="form-control" autocomplete="username" id="name" placeholder="Email" aria-required="true">
+                            <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" id="name" placeholder="First Name" aria-required="true">
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" placeholder="Last Name" aria-required="true">
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" id="email" placeholder="Email" aria-required="true">
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Address" class="form-control" autocomplete="address" id="address" placeholder="Address" aria-required="true">
+                            <span asp-validation-for="Input.Address" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.City" class="form-control" autocomplete="city" id="city" placeholder="City" aria-required="true">
+                            <span asp-validation-for="Input.City" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.State" class="form-control" autocomplete="state" id="state" placeholder="State" aria-required="true">
+                            <span asp-validation-for="Input.State" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Zip" class="form-control" autocomplete="zip" id="zip" placeholder="Zip" aria-required="true">
+                            <span asp-validation-for="Input.Zip" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Country" class="form-control" autocomplete="country" id="country" placeholder="Country" aria-required="true">
+                            <span asp-validation-for="Input.Country" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="Input.Phone" class="form-control" autocomplete="phone" id="phone" placeholder="Phone" aria-required="true">
+                            <span asp-validation-for="Input.Phone" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
                             <input asp-for="Input.Password" class="form-control" placeholder="Password" autocomplete="new-password" aria-required="true">
